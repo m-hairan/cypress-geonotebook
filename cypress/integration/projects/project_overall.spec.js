@@ -46,7 +46,7 @@ describe('Project Overall Test', () => {
         cy.visit('/')
         cy.get('#mainnavlist').contains('Projects').click()
         changeActive()
-        changeActive()
+        // changeActive()
     })
 
 
@@ -64,8 +64,9 @@ describe('Project Overall Test', () => {
                 cy.get('#deleteprojectmodal').should('have.class', 'show').then(() => {
                     cy.get('#deleteprojectinputname').clear().type(TEST_PROJECT).then(() => {
                         cy.get('#deleteprojectmodalsubmitbutton').click()
-                        cy.visit('/')
-                        cy.get('#mainnavlist').contains('Projects').click()
+                        cy.log('Delete Project Successful')
+                        // cy.visit('/')
+                        // cy.get('#mainnavlist').contains('Projects').click()
                         cy.get('#mainnavlist').should('not.contain', TEST_PROJECT).then(() => {
                             cy.log('Delete Project Successful')
                         })
