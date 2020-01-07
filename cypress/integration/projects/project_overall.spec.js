@@ -8,7 +8,7 @@ describe('Project Overall Test', () => {
     })
 
     const changeActive = () => {
-        cy.contains(TEST_PROJECT).first().find('.icongrow').last().then($pro => {
+        cy.contains(TEST_PROJECT).first().find('.icongrow:last-child').then($pro => {
             if($pro.hasClass('projectactive'))
                 ACTIVE = true
             else ACTIVE = false
@@ -20,7 +20,7 @@ describe('Project Overall Test', () => {
             cy.get('#Refreshproject').click()
 
             cy.get('#mainnavlist').contains('Projects').click()
-            cy.contains(TEST_PROJECT).first().find('.icongrow').last().then($p => {
+            cy.contains(TEST_PROJECT).first().find('.icongrow:last-child').then($p => {
                 if((!ACTIVE && $p.hasClass('projectactive')) || (ACTIVE && !$p.hasClass('projectactive')))
                     cy.log(!ACTIVE?'Successfully activated':'Successfully diactivated')
                 else throw new Error("Failed")
@@ -56,6 +56,7 @@ describe('Project Overall Test', () => {
 
         cy.contains(TEST_PROJECT).then(() => {
             cy.contains(TEST_PROJECT).find('.projectsettings').click()
+            cy.wait(2000)
             cy.url().should('be.contain', 'projects').then(url => {
                 cy.log(url)
                 cy.get('button[data-target="#deleteprojectmodal"]').click()
