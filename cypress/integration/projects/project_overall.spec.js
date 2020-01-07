@@ -18,7 +18,7 @@ describe('Project Overall Test', () => {
 
             cy.contains(TEST_PROJECT).first().find('.icongrow').last().click()
             cy.get('#Refreshproject').click()
-
+            cy.wait(2000)
             cy.get('#mainnavlist').contains('Projects').click()
             cy.contains(TEST_PROJECT).first().find('.icongrow:last-child').then($p => {
                 if((!ACTIVE && $p.hasClass('projectactive')) || (ACTIVE && !$p.hasClass('projectactive')))
@@ -64,15 +64,16 @@ describe('Project Overall Test', () => {
                 cy.get('#deleteprojectmodal').should('have.class', 'show').then(() => {
                     cy.get('#deleteprojectinputname').clear().type(TEST_PROJECT).then(() => {
                         cy.get('#deleteprojectmodalsubmitbutton').click()
+                        cy.visit('/')
+                        cy.get('#mainnavlist').contains('Projects').click()
+                        cy.get('#mainnavlist').should('not.contain', TEST_PROJECT).then(() => {
+                            cy.log('Delete Project Successful')
+                        })
                     })
                 })
             })
         })
 
-        cy.visit('/')
-        cy.get('#mainnavlist').contains('Projects').click()
-        cy.get('#mainnavlist').should('not.contain', TEST_PROJECT).then(() => {
-            cy.log('Delete Project Successful')
-        })
+        
     })
   })
