@@ -17,7 +17,7 @@ const TEST_DATA = {
 
 let TEST_ROW = null
 
-describe('User Layer', () => {
+describe('User Layer Overall Test', () => {
     beforeEach(() => {
         cy.login()
     })

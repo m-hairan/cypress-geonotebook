@@ -2,8 +2,8 @@ const TEST_PROJECT = 'injlamoU68' + new Date().getTime()
 const FILENAME = 'test-well.zip';
 let ACTIVE = false
 
-describe('Import a shapefile to wells', () => {
-    before(() => {
+describe('Project Overall Test', () => {
+    beforeEach(() => {
         cy.login()
     })
 
