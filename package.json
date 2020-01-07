@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cypress run",
     "cy:verify": "cypress verify",
-    "cy:open": "cypress run",
+    "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:record": "percy exec -- cypress run --record",
     "start": "my-server -p 3030 --https",

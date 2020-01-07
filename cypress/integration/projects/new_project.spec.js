@@ -6,16 +6,16 @@ describe('Import a shapefile to wells', () => {
         cy.login()
     })
       
-    it('Test', () => {
-        cy.get('#mainnavlist').contains('Projects').click()
-        cy.get('#mainnavlist #addnewprojecticon').click()
-        cy.get('#newprojectnameinput1').clear().type(TEST_PROJECT)
-        cy.get('#projectnew').submit()
+    // it('Test', () => {
+    //     cy.get('#mainnavlist').contains('Projects').click()
+    //     cy.get('#mainnavlist #addnewprojecticon').click()
+    //     cy.get('#newprojectnameinput1').clear().type(TEST_PROJECT)
+    //     cy.get('#projectnew').submit()
 
-        cy.visit('/')
-        cy.get('#mainnavlist').contains('Projects').click()
-        cy.get('#mainnavlist').find('#ProjectsSubmenu').should('contain', TEST_PROJECT).then(() => {
-            cy.log('Create project successful.')
-        })
-    })
+    //     cy.visit('/')
+    //     cy.get('#mainnavlist').contains('Projects').click()
+    //     cy.get('#mainnavlist').find('#ProjectsSubmenu').should('contain', TEST_PROJECT).then(() => {
+    //         cy.log('Create project successful.')
+    //     })
+    // })
   })

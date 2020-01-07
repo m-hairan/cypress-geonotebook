@@ -25,6 +25,7 @@ describe('Edit & Save Single Well', () => {
 
                 cy.log(`Well-${TEST_ROW} is selected.`)
                 cy.get('.col-auto .editTableValues_button').click().then(async () => {
+                    cy.wait(1000)
                     await Object.keys(TEST_DATA).map(key => {
                         cy.get(`#datatable1 tbody tr input[name="${TEST_ROW};${key}"]`).then(el => {
                             el.prop("disabled", false)

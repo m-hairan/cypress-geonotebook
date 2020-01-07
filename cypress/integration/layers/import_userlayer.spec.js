@@ -1,6 +1,6 @@
 import 'cypress-file-upload'
 
-const TEST_LAYER = 'injlamoU67'
+const TEST_LAYER = 'injlamoU67' + new Date().getTime()
 const FILENAME = 'test-layer.zip';
 
 describe('Import User Layer', () => {

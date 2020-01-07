@@ -1,7 +1,8 @@
 import 'cypress-file-upload'
 
-const TEST_LAYER = 'injlamoU67'
+const TEST_LAYER = 'injlamoU67' + new Date().getTime()
 const FILENAME = 'test-layer.zip';
+const exportFile = 'downloadtest'
 
 const TEST_DATA = {
     OBJECTID: 99,
@@ -46,6 +47,7 @@ describe('User Layer', () => {
 
 
     it('Edit & Save Test', () => {
+        cy.visit('/')
         cy.get('#mainnavlist').contains('Layers').click()
         cy.get('#mainnavlist').find('#LayerSubmenu').contains(TEST_LAYER).click()
 
@@ -55,6 +57,7 @@ describe('User Layer', () => {
 
                 cy.log(`Feature-${TEST_ROW} is selected.`)
                 cy.get('.col-auto .editTableValues_button').click().then(async () => {
+                    cy.wait(1000)
                     await Object.keys(TEST_DATA).map(key => {
                         cy.get(`#datatable1 tbody tr input[name="${TEST_ROW};${key}"]`).then(el => {
                             el.prop("disabled", false)
@@ -80,7 +83,80 @@ describe('User Layer', () => {
     })
 
 
+    it('Delete singlefeature from userlayer', () => {
+        cy.visit('/')
+        cy.get('#mainnavlist').contains('Layers').click()
+        cy.get('#mainnavlist').find('#LayerSubmenu').contains(TEST_LAYER).click()
+
+        cy.get('#PanelB').should('not.have.class', 'panel-bottom-hide').then(() => {
+            cy.get('#datatable1 tbody tr input[type="checkbox"]').first().check().then($val => {
+                TEST_ROW = $val.val()
+
+                cy.log(`Feature-${TEST_ROW} is selected.`)
+                cy.get('.col-auto .editTableValues_button').click()
+                cy.get('.col-auto #deleteTableValues').click()
+                cy.get('#confirmdelete').find('button').contains('Delete').click()
+                
+                cy.visit('/')
+                cy.get('#mainnavlist').contains('Layers').click()
+                cy.get('#mainnavlist').find('#LayerSubmenu').contains(TEST_LAYER).click()
+                cy.get('#PanelB').should('not.have.class', 'panel-bottom-hide').then(() => {
+                    if(TEST_ROW !== null){
+                        cy.get('#datatable1 tbody tr input[type="checkbox"]').first().should('not.have.value', TEST_ROW)
+
+                        cy.log(`Feature-${TEST_ROW} is deleted.`)
+                        cy.log('Delete Single Feature Successful')
+                    } else {
+                        throw new Error("No feature selected")
+                    }
+                })
+            })
+        })
+    })
+
+
+    it('Export SHP ', () => {
+        cy.visit('/')
+        cy.get('#mainnavlist').contains('Layers').click()
+        cy.get('#mainnavlist').find('#LayerSubmenu').contains(TEST_LAYER).click()
+
+        cy.get('#PanelB').should('not.have.class', 'panel-bottom-hide').then(() => {
+            cy.get('#datatable1 tbody tr input[type="checkbox"]').first().check().then( $val => {
+                cy.get('#exportFeatures').click().then(() => {
+                   cy.get('input[name="shp"]').check()
+                   cy.get('input[name="kml"]').check()
+                   cy.get('input[name="export_name"]').clear().type(exportFile)
+                //    cy.get('#ConfirmExport').click().then(() => {
+                //         cy.visit('/')
+                //    })
+                  
+                })
+            })
+        })
+    })
+
+
+    it('Edit menu from feature menu', () => {
+        cy.visit('/')
+        cy.get('#mainnavlist').contains('Layers').click()
+        cy.get('#mainnavlist').find('#LayerSubmenu').contains(TEST_LAYER).click()
+
+        cy.get('#PanelB').should('not.have.class', 'panel-bottom-hide').then(() => {
+            cy.get('#datatable1 tbody tr .tablerowmenu button').first().click().then(() => {
+                cy.get('#datatable1 tbody tr .tablerowmenu').contains('Edit').click()
+
+                cy.get('#PanelB #accordion').contains('Geometry').click()
+                cy.get('#geogra_coor tbody tr').first().find('input').first().clear().type('99')
+                cy.get('#geogra_coor tbody tr').first().find('input').last().clear().type('99')
+
+                cy.get('#saveEditedFeatures').click()
+            })
+        })
+    })
+
+
     it('Delete User Tesr', () => {
+        cy.visit('/')
         cy.get('#mainnavlist').contains('Layers').click()
 
         cy.contains(TEST_LAYER).then(() => {
