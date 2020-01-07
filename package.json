@@ -10,14 +10,23 @@
     "cy:run": "cypress run",
     "cy:run:record": "percy exec -- cypress run --record",
     "start": "my-server -p 3030 --https",
-    "cy:ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start https-get://localhost:3030 cy:run"
+    "cy:ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start https-get://localhost:3030 cy:run",
+    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=junit-results/my-test-output.xml'",
+    "test-multiple": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config.json"
   },
   "author": "Don",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cypress-io/cypress-example-docker-circle/issues"
+  },
+  "homepage": "https://github.com/cypress-io/cypress-example-docker-circle#readme",
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^1.3.0",
     "cypress": "^3.8.1",
-    "cypress-file-upload": "^3.5.1"
+    "cypress-file-upload": "^3.5.1",
+    "mocha": "^4.0.1",
+    "mocha-junit-reporter": "^1.13.0",
+    "mocha-multi-reporters": "^1.1.4"
   },
   "dependencies": {
     "downloads-folder": "^1.0.2"
