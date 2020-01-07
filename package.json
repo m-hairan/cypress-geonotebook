@@ -1,0 +1,25 @@
+{
+  "name": "geonotebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "cy:verify": "cypress verify",
+    "cy:open": "cypress run",
+    "cy:run": "cypress run",
+    "cy:run:record": "percy exec -- cypress run --record",
+    "start": "my-server -p 3030 --https",
+    "cy:ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start https-get://localhost:3030 cy:run"
+  },
+  "author": "Don",
+  "license": "ISC",
+  "devDependencies": {
+    "@4tw/cypress-drag-drop": "^1.3.0",
+    "cypress": "^3.8.1",
+    "cypress-file-upload": "^3.5.1"
+  },
+  "dependencies": {
+    "downloads-folder": "^1.0.2"
+  }
+}

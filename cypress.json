@@ -1,0 +1,9 @@
+{
+    "projectId": "geonote",
+    "baseUrl": "https://geonotebook.com/geodesk/",
+    "modifyObstructiveCode": false,
+    "chromeWebSecurity": false,
+    "pageLoadTimeout": 2000000,
+    "defaultCommandTimeout": 20000
+
+}
