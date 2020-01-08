@@ -20,6 +20,7 @@ describe('Project Overall Test', () => {
             cy.get('#Refreshproject').click()
             cy.wait(2000)
             cy.get('#mainnavlist').contains('Projects').click()
+            cy.wait(2000)
             cy.contains(TEST_PROJECT).first().find('.icongrow:last-child').then($p => {
                 if((!ACTIVE && $p.hasClass('projectactive')) || (ACTIVE && !$p.hasClass('projectactive')))
                     cy.log(!ACTIVE?'Successfully activated':'Successfully diactivated')
