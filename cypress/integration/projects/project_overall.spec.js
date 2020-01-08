@@ -57,7 +57,6 @@ describe('Project Overall Test', () => {
         cy.contains(TEST_PROJECT).then(() => {
             cy.contains(TEST_PROJECT).find('.projectsettings').click()
             cy.url().should('be.contain', 'projects').then(url => {
-                cy.log(url)
                 cy.get('button[data-target="#deleteprojectmodal"]').click()
 
                 cy.get('#deleteprojectmodal').should('have.class', 'show').then(() => {
