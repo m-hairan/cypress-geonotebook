@@ -55,9 +55,25 @@ describe('Project Overall Test', () => {
         cy.get('#mainnavlist').contains('Projects').click()
 
         cy.contains(TEST_PROJECT).then(() => {
+            cy.log(cy.contains(TEST_PROJECT))
             cy.contains(TEST_PROJECT).find('.projectsettings').click()
-            cy.wait(4000)
-            
+            cy.log(cy.contains(TEST_PROJECT).find('.projectsettings'))
+            cy.url().should('be.contain', 'projects').then(url => {
+                cy.log(url)
+                cy.get('button[data-target="#deleteprojectmodal"]').click()
+
+                cy.get('#deleteprojectmodal').should('have.class', 'show').then(() => {
+                    cy.get('#deleteprojectinputname').clear().type(TEST_PROJECT).then(() => {
+                        cy.get('#deleteprojectmodalsubmitbutton').click()
+                        cy.log('Delete Project Successful')
+                        // cy.visit('/')
+                        // cy.get('#mainnavlist').contains('Projects').click()
+                        cy.get('#mainnavlist').should('not.contain', TEST_PROJECT).then(() => {
+                            cy.log('Delete Project Successful')
+                        })
+                    })
+                })
+            })
         })
 
         
