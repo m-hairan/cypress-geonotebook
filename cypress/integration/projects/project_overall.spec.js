@@ -55,9 +55,7 @@ describe('Project Overall Test', () => {
         cy.get('#mainnavlist').contains('Projects').click()
 
         cy.contains(TEST_PROJECT).then(() => {
-            cy.log(cy.contains(TEST_PROJECT))
             cy.contains(TEST_PROJECT).find('.projectsettings').click()
-            cy.log(cy.contains(TEST_PROJECT).find('.projectsettings'))
             cy.url().should('be.contain', 'projects').then(url => {
                 cy.log(url)
                 cy.get('button[data-target="#deleteprojectmodal"]').click()
