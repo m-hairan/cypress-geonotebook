@@ -57,12 +57,12 @@ jobs:
             ssh -o StrictHostKeyChecking=no -i geokey.pem ubuntu@geonotebook.com "./geonotebook/deploy.sh"
 
 
-  workflows:
-    version: 2
-    build_and_test:
-      jobs:
-        - test
-        - build:
-            requires:
-              - test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
 
