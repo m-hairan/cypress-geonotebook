@@ -7,6 +7,8 @@ jobs:
   build:
     docker:
       - image: cypress/base:8
+      - image: circleci/python:3.6.4
+      
 
     working_directory: ~/repo
 
@@ -15,6 +17,7 @@ jobs:
     
       - restore_cache:
           keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
             - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
             - v1-deps-{{ .Branch }}
             - v1-deps
@@ -36,3 +39,9 @@ jobs:
           path: junit-results
       - store_artifacts:
           path: cypress/screenshots
+
+      - run:
+          name: AWS EC2 deploy
+          command: |
+            chmod 400 geokey.pem
+            ssh -o StrictHostKeyChecking=no -i geokey.pem ubuntu@geonotebook.com "./geonotebook/deploy.sh"
