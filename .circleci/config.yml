@@ -6,8 +6,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/base:8
       - image: circleci/python:3.6.4
+      - image: cypress/base:8
       
 
     working_directory: ~/repo
