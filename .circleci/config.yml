@@ -17,7 +17,6 @@ jobs:
     
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "requirements.txt" }}
             - v1-deps-{{ .Branch }}-{{ checksum "package.json" }}
             - v1-deps-{{ .Branch }}
             - v1-deps
