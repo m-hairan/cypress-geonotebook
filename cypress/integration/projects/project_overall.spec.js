@@ -1,4 +1,4 @@
-const TEST_PROJECT = 'injlamoU68' + new Date().getTime()
+const TEST_PROJECT = '' + new Date().getTime()
 const FILENAME = 'test-well.zip';
 let ACTIVE = false
 
