@@ -4,11 +4,9 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
-      - image: circleci/python:3.6.4
       - image: cypress/base:8
-      
 
     working_directory: ~/repo
 
@@ -38,9 +36,33 @@ jobs:
           path: junit-results
       - store_artifacts:
           path: cypress/screenshots
+  
+  build:
+    docker:
+      - image: circleci/python:3.6.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+    
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
           name: AWS EC2 deploy
           command: |
             chmod 400 geokey.pem
             ssh -o StrictHostKeyChecking=no -i geokey.pem ubuntu@geonotebook.com "./geonotebook/deploy.sh"
+
+
+  workflows:
+    version: 2
+    build_and_test:
+      jobs:
+        - test
+        - build:
+            requires:
+              - test
+
