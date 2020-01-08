@@ -55,7 +55,7 @@ describe('Project Overall Test', () => {
         cy.get('#mainnavlist').contains('Projects').click()
 
         cy.contains(TEST_PROJECT).then(() => {
-            cy.contains(TEST_PROJECT).find('.projectsettings').click()
+            cy.contains(TEST_PROJECT).parent().find('.projectsettings').click()
             cy.wait(2000)
             cy.url().should('be.contain', 'projects').then(url => {
                 cy.log(url)
